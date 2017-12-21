@@ -1,12 +1,12 @@
-FROM debian:latest
-MAINTAINER Roberto Andrade <roberto@cloud.com>
+FROM ubuntu:16.04
+MAINTAINER Julio Yacot jyacot@gmail.com
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm
 
 RUN apt-get update && \
-	apt-get install -y wget dnsutils vim telnet && \
-	echo 'deb http://download.jitsi.org/nightly/deb unstable/' >> /etc/apt/sources.list && \
-	wget -qO - https://download.jitsi.org/nightly/deb/unstable/archive.key | apt-key add - && \
+	apt-get install -y wget dnsutils vim nginx telnet apt-transport-https && \
+	wget -qO - https://download.jitsi.org/jitsi-key.gpg.key | apt-key add - && \
+	echo 'deb https://download.jitsi.org stable/' > /etc/apt/sources.list.d/jitsi-stable.list && \
 	apt-get update && \
 	apt-get -y install jitsi-meet && \
 	apt-get clean
